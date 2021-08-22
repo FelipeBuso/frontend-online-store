@@ -2,17 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import '../css/CategoriesList.css';
 
-function CategoriesList({ categories, setCategorieId }) {
+function CategoriesList({ categories, setCategoryId, setQuery, setProductDetail }) {
+
+  function setParamsAPI(id) {
+    setProductDetail({});
+    setCategoryId(id);
+    setQuery('');
+  }
+
   return (
     <div className="categories-list-container">
-      { categories.map((categorie) => {
+      { categories.map((category) => {
         return(
           <button
             className="categories-list-button"
-            key={ categorie.id }
-            onClick={ () => setCategorieId(categorie.id) }
+            key={ category.id }
+            onClick={ () => setParamsAPI(category.id) }
           >
-            { categorie.name }
+            { category.name }
           </button>
         );
       }) 

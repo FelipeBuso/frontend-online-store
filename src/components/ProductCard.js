@@ -1,12 +1,18 @@
 import React from 'react';
 import '../css/ProductsList.css';
 
-function ProductCard({ product }) {
+function ProductCard({ product, setProductDetailId }) {
   return (
-    <div key={ product.id } className="product-card"> 
+    <div
+      key={ product.id }
+      className="product-card-container"
+      onClick={ () => setProductDetailId(product.id) }
+    > 
       <img src={ product.thumbnail } className="product-card-image" />
-      <p>{ product.title }</p>
-      <p>R$: { product.price }</p>
+      <div className="product-card-content-text">
+        <p className="product-card-title">{ product.title }</p>
+        <p className="product-card-price">R$: { product.price }</p>
+      </div>
     </div>
   )
 }
