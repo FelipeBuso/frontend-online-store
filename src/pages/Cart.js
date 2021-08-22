@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 function Cart() {
   return (
     <div>
-      <h1>Estamos no Cart</h1>         
+      <Header />        
     </div>
   );
 }
