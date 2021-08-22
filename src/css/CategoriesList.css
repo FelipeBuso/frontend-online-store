@@ -1,10 +1,11 @@
 .categories-list-container {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 13%;
   border: 1px solid aqua;
   margin: 5px;
   margin-top: 9px;
+  background-color: royalblue;
 }
 
 .categories-list-button {

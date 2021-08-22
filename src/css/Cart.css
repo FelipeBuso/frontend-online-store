@@ -32,3 +32,30 @@
 .product-cart-total-value {
   margin: 10px;
 }
+
+.buttons-cart-quant {
+  padding: 1%;
+  margin: 1%;
+  width: 20px;
+  border: none;
+  background: none;
+  border: 1px solid aqua;
+  background-color: whitesmoke;
+}
+
+.buttons-cart-quant:hover {
+  background-color: rgb(73, 73, 216);
+}
+
+.buttons-cart-remove {
+  padding: 1%;
+  margin: 1%;
+  border: none;
+  background: none;
+  border: 1px solid aqua;
+  background-color: whitesmoke;
+}
+
+.buttons-cart-remove:hover {
+  background-color: rgb(73, 73, 216);
+}

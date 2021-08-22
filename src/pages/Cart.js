@@ -28,9 +28,9 @@ function Cart({ cartProducts, addProduct, decreaseQuantProduct, removeProduct })
             <p className="product-cart-title">{ product.title }</p>
             <p className="product-cart-price">R$ { product.price }</p>
             <p className="product-cart-quant">Quantidade: { product.quant_product }</p>
-            <button type="button" onClick={ () => addProduct(product) }>+</button> 
-            <button type="button" onClick={ () => decreaseQuantProduct(product) }>-</button> <br />
-            <button type="button" onClick={ () => removeProduct(product.id) }>Remover do Carrinho</button>
+            <button className="buttons-cart-quant" type="button" onClick={ () => addProduct(product) }>+</button> 
+            <button className="buttons-cart-quant" type="button" onClick={ () => decreaseQuantProduct(product) }>-</button> <br />
+            <button className="buttons-cart-remove" type="button" onClick={ () => removeProduct(product.id) }>Remover do Carrinho</button>
           </div>
         </div>
       );

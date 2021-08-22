@@ -5,6 +5,7 @@
 
 .product-list-container {
   font-size: 11px;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
 }
