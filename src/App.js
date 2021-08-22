@@ -1,20 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Header from './components/Header';
-import Section from './components/Section';
+import React from 'react';
+import { HashRouter } from 'react-router-dom';
+import Routes from './components/Routes';
+import './css/Section.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="app">
-        <Router>
-          <Header />
-          <Section />
-        </Router>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <HashRouter>
+      <Routes />
+    </HashRouter>
+  );
 }
 
 export default App;

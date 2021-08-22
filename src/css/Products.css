@@ -1,43 +1,111 @@
-.product {
+body {
+  align-items: center;
+  background-color: #ddd;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.card {
+  border-bottom: thin solid #eee;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px 50px 20px 0;
+  width: 885px;
+}
+
+.linktroll {
+  display: flex;
+}
+
+.cart-items {
+  align-items: right;
+  background-color: white;
+  border: 1px solid #eee;
+  box-shadow: 2px 8px 20px #ddd;
+  justify-content: center;
+}
+
+.product {
+  background-color: aqua;
+  display: flex;
   justify-content: space-around;
-  width: 200px;
+  transition: 0.5s linear;
+  width: 240px;
+}
+
+.forname h3 {
+  color: #333;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.forname div {
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  order: 0;
+  width: 100%;
+}
+
+.forinfo span {
+  color: #333;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-right: 8px;
 }
 
 a:link {
   text-decoration: none;
 }
 
-.card {
-  border: 1px solid #eee;
-  box-shadow: 2px 8px 20px #ddd;
-  display: inline-block;
+.divid {
+  display: flex;
   flex-direction: row;
-  margin: 10px;
-  min-height: 150px;
-  min-width: 150px;
-  overflow: hidden;
-  padding: 10px;
-  transition: 0.5s linear;
+  height: 100%;
+  max-width: 1215px;
+  padding-left: 10px;
+  padding-right: 28px;
+  width: 100%;
 }
 
-.cart-items {
-  align-items: right;
-  margin-left: 55px;
-}
-
-.cart-items h4 {
-  left: 40%;
-  position: relative;
-  top: 50%;
+.notfon {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 885px;
 }
 
 .card:hover {
   box-shadow: none;
 }
 
-.card img, .img-details {
+.forimg {
+  border-radius: 4px;
+  box-sizing: content-box;
+  flex-shrink: 0;
+  font-size: 1px;
+  height: 160px;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  width: 160px;
+}
+
+.card img {
+  height: 160px;
+  object-fit: contain;
+  outline: none;
+  width: 160px;
+}
+
+.img-details {
   display: block;
   height: 100%;
   max-height: 300px;
@@ -70,30 +138,15 @@ a:link {
   justify-content: space-evenly;
 }
 
-h3 {
-  color: black;
-  margin: 10px 0;
-  text-align: center;
-}
-
-h3:hover {
-  color: crimson;
-}
-
-p {
-  color: crimson;
-  margin: 10px 0;
-}
-
 .button {
-  background: #333;
+  align-items: center;
+  background-color: rgb(172, 161, 161);
   border: none;
   color: white;
   cursor: pointer;
-  display: block;
   height: 40px;
   letter-spacing: 2px;
-  margin: 15px 0;
+  margin: 0 auto;
   outline: none;
   text-transform: uppercase;
   width: 100%;

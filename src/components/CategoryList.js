@@ -1,58 +1,32 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { getCategories } from '../services/api';
-import Loading from './Loading';
+import React, { useContext } from 'react';
+
 import '../css/Section.css';
+import ShoppingContext from '../context/ShoppingContext';
 
-export default class CategoryList extends Component {
-  constructor() {
-    super();
+export default function CategoryList() {
+  const { fetchProducts, categories, CategoryId, loading } = useContext(ShoppingContext);
 
-    this.state = {
-      categories: [],
-      status: 'loading',
-    };
-  }
+  return (
+    <section className="category-section">
+      <h1>Categorias:</h1>
+      { categories.map((category) => (
+        <option
+          type="button"
+          key={ category.id }
+          className="label-radio"
+          data-testid="category"
+          disabled={ loading }
+          id={ CategoryId }
+          name="category"
+          value={ category.id }
+          onClick={ ({ target: { value } }) => fetchProducts(value) }
 
-  componentDidMount() {
-    this.fetchApi();
-  }
+        >
+          { category.name }
 
-  async fetchApi() {
-    const data = await getCategories();
-    this.setState({ categories: data, status: false });
-  }
+        </option>
+      ))}
 
-  render() {
-    const { categories, status } = this.state;
-    const { fetchProducts } = this.props;
-
-    if (status === 'loading') {
-      return <Loading />;
-    }
-
-    return (
-      <section className="category-section">
-        <h1>Categorias:</h1>
-        { categories.map((category) => (
-          <option
-            key={ category.id }
-            className="label-radio"
-            data-testid="category"
-            id={ category.id }
-            name="category"
-            value={ category.id }
-            onClick={ ({ target: { value } }) => fetchProducts(value) }
-          >
-            { category.name }
-
-          </option>
-        ))}
-      </section>
-    );
-  }
+    </section>
+  );
 }
-
-CategoryList.propTypes = {
-  fetchProducts: PropTypes.func.isRequired,
-};

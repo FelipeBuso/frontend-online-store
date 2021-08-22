@@ -1,124 +1,102 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ShoppingContext from '../context/ShoppingContext';
 import '../css/Products.css';
+import Header from './Header';
 
-class ShoppingCart extends React.Component {
-  constructor() {
-    super();
-    this.state = { products: [], count: 0 };
-  }
+function ShoppingCart() {
+  const { cart, reduction, increase,
+    remove, total, getTotal } = useContext(ShoppingContext);
 
-  componentDidMount() {
-    this.getItemLocalStorage();
-  }
+  useEffect(() => {
+    getTotal();
+  }, [getTotal]);
 
-  getItemLocalStorage = () => {
-    const getProducts = { ...localStorage };
-    const arrayOfproducts = Object.values(getProducts).map((e) => JSON.parse(e));
-
-    this.setState({ products: arrayOfproducts, count: arrayOfproducts });
-  };
-
-  handleClick = ({ target: { id } }) => {
-    const product = JSON.parse(localStorage.getItem(id));
-    localStorage.setItem(id, JSON.stringify(product));
-    this.getItemLocalStorage();
-  };
-
-  handleDelete = ({ target: { id } }) => {
-    localStorage.removeItem(id);
-    this.getItemLocalStorage();
-  };
-
-  render() {
-    const { count } = this.state;
-    const { products } = this.state;
-
-    if (!products.length) {
-      return (
-        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-      );
-    }
-
+  if (!cart.length) {
     return (
-      <>
-        <div className="div-cart">
-          <h1>Carrinho</h1>
-          <p>
-            TOTAL: R$
-            {' '}
-            { Math.round(products.reduce(
-              (a, c) => a + (c.counter * c.price), 0,
-            ) * 100) / 100 }
-          </p>
-          <Link to={ { pathname: '/checkout' } }>
-            <button className="button" data-testid="checkout-products" type="button">
-              Finalizar compra
-            </button>
-          </Link>
+      <div>
+        <Header />
+        <div>
+          <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         </div>
-        <ul className="cart-items">
-          {products.map((
-            { title, price, thumbnail, id, availableQuantity, attributes },
-          ) => (
-            <li className="card" key={ id }>
-              <button
-                className="button-delete"
-                type="button"
-                name="delete"
-                id={ title }
-                onClick={ this.handleDelete }
-              >
-                Excluir
-              </button>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <Header />
+      <div className="div-cart">
+        <h1>Carrinho</h1>
+        <p>{ `TOTAL: R$ ${total.toLocaleString('pt-BR')}` }</p>
+        <Link to={ { pathname: '/checkout' } }>
+          <button className="button" data-testid="checkout-products" type="button">
+            Finalizar compra
+          </button>
+        </Link>
+      </div>
+      <ul className="cart-items">
+        {cart.map((product) => (
+          <li className="card" key={ product.id }>
+            <button
+              className="button-delete"
+              type="button"
+              name="delete"
+              id={ product.title }
+              onClick={ () => remove(product.id) }
+            >
+              Excluir
+            </button>
+            <div className="products">
               <Link
                 data-testid="product-detail-link"
                 to={ {
-                  pathname: `/product/${id}`,
-                  state: { title,
-                    price,
-                    thumbnail,
-                    id,
-                    availableQuantity,
-                    attributes,
-                  },
+                  pathname: `/product/${product.id}`,
                 } }
               >
-                <div className="product">
 
-                  <img src={ thumbnail } alt={ `Foto do produto ${title}` } />
-                  <h3 data-testid="shopping-cart-product-name">{title}</h3>
-                  <p>{ `R$ ${price.toLocaleString('pt-BR')}` }</p>
-                </div>
+                <img
+                  src={ product.thumbnail }
+                  alt={ `Foto do produto ${product.title}` }
+                />
               </Link>
-              <div className="buttons-cart">
-                <button
-                  data-testid="product-increase-quantity"
-                  type="button"
-                  className="button-sub-sum"
-                >
-                  -
-                </button>
-                <p
-                  className="quantity"
-                  data-testid="shopping-cart-product-quantity"
-                >
-                  {count.find((item) => item.title === title).counter}
-                </p>
-                <button
-                  data-testid="product-decrease-quantity"
-                  type="button"
-                  className="button-sub-sum"
-                >
-                  +
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </>
-    );
-  }
+              <h3 data-testid="shopping-cart-product-name">{product.title}</h3>
+
+              <p>{ `R$ ${(product.price * product.counter).toLocaleString('pt-BR')}` }</p>
+
+            </div>
+            <div className="buttons-carts">
+              <button
+                data-testid="product-decrease-quantity"
+                type="button"
+                className="button-sub-sum"
+                onClick={ () => { reduction(product.id); } }
+                disabled={ product.counter === 1 }
+              >
+                -
+              </button>
+              <p
+                className="quantity"
+                data-testid="shopping-cart-product-quantity"
+              >
+                {product.counter}
+
+              </p>
+              <button
+                data-testid="product-increase-quantity"
+                type="button"
+                className="button-sub-sum"
+                onClick={ () => { increase(product.id); } }
+                disabled={ product.available_quantity === product.counter }
+              >
+                +
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default ShoppingCart;

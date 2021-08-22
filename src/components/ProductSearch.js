@@ -1,31 +1,25 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import ShoppingContext from '../context/ShoppingContext';
 import ProductCard from './ProductCard';
 
-class ProductSearch extends Component {
-  render() {
-    const { products } = this.props;
-    return (
-      <ul className="cart-items">
-        { products.length === 0
-          ? <h4>Nenhum produto foi encontrado</h4>
-          : products.map((product) => (
-            <ProductCard
-              key={ product.id }
-              products={ product }
-            />
+function ProductSearch() {
+  const { request, dataApi } = useContext(ShoppingContext);
+
+  return (
+    <div>
+      {dataApi.length === 0 ? (
+        <div className="notfon">
+          <h4>Nenhum produto foi encontrado</h4>
+        </div>
+      ) : (
+        <ul className="cart-items">
+          {dataApi.map((product) => (
+            <ProductCard key={ product.id } product={ product } request={ request } />
           ))}
-      </ul>
-    );
-  }
+        </ul>
+      )}
+    </div>
+  );
 }
-
-ProductSearch.propTypes = {
-  products: PropTypes.array,
-}.isRequired;
-
-ProductSearch.defaultProps = {
-  products: [],
-};
 
 export default ProductSearch;

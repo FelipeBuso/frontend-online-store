@@ -1,206 +1,152 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Rating from './Rating';
 import '../css/Products.css';
-import CartIcon from '../img/shopping-cart-solid.svg';
+import Header from './Header';
+import ShoppingContext from '../context/ShoppingContext';
 
-export default class ProductDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      message: '',
-      rating: 0,
-      showForm: false,
-      counter: 1,
-      sum: 0,
+export default function ProductDetails() {
+  const { addToCart, dataApi, getTotalItens } = useContext(ShoppingContext);
+  const [product, setProduct] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [showForm, setShowForm] = useState(false);
+  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState('');
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    getTotalItens();
+  }, [getTotalItens]);
+
+  useEffect(() => {
+    const getProducts = () => {
+      if (id) {
+        const data = dataApi.filter((item) => item.id === id);
+        setProduct(data);
+      }
     };
+    getProducts();
+  }, [dataApi, id]);
 
-    this.inputHandler = this.inputHandler.bind(this);
-    this.renderRating = this.renderRating.bind(this);
+  function renderRating() {
+    setShowForm(true);
   }
 
-  componentDidMount() {
-    this.sumCartItems();
-    this.changeState();
-  }
-
-  changeState = () => {
-    const { location: { state } } = this.props;
-    const { title } = state;
-
-    const local = JSON.parse(localStorage.getItem(title));
-    if (local) {
-      this.setState({ counter: local.counter + 1 });
-    }
-  };
-
-  handleClick = () => {
-    const { location: { state } } = this.props;
-    const { location: { state: { title } } } = this.props;
-    const { counter } = this.state;
-    const local = JSON.parse(localStorage.getItem(title));
-
-    this.setState((previous) => ({ counter: previous.counter + 1 }));
-
-    if (local) {
-      local.counter = counter;
-      localStorage.setItem(title, JSON.stringify(local));
-    } else {
-      const object = { ...state, counter };
-      localStorage.setItem(title, JSON.stringify(object));
-    }
-
-    this.sumCartItems();
-  };
-
-  sumCartItems = () => {
-    const storage = { ...localStorage };
-    const response = Object.values(storage).map((e) => JSON.parse(e));
-    const total = response.reduce((acc, curr) => acc + curr.counter, 0);
-    this.setState({ sum: total });
-  }
-
-  inputHandler({ target: { name, value } }) {
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  renderRating() {
-    this.setState({
-      showForm: true,
-    });
-  }
-
-  render() {
-    const { location: { state: { title, thumbnail, price, attributes } } } = this.props;
-    const { email, message, rating, showForm, sum } = this.state;
-    return (
-      <>
-        <div className="cart-screen">
-          <span data-testid="shopping-cart-size">{ sum }</span>
-          <Link
-            data-testid="shopping-cart-button"
-            to="/cart"
-          >
+  return (
+    <>
+      <Header />
+      <div>
+        {product.map((prod, ind) => (
+          <div key={ ind }>
+            <div className="name-item-detais">
+              <h3 data-testid="product-detail-name">{prod.title}</h3>
+              <p>{ `R$ ${prod.price.toLocaleString('pt-BR')}` }</p>
+            </div>
+            <div className="product-detail">
+              <img src={ prod.thumbnail } alt={ prod.title } className="img-details" />
+              <ul>
+                {prod.attributes && prod.attributes
+                  .map((item, index) => (
+                    <li key={ index }>
+                      {item.name}
+                      :
+                      {' '}
+                      {item.value_name}
+                    </li>
+                  ))}
+              </ul>
+            </div>
             <button
               type="button"
-              className="cart-scree"
-            >
-              <img src={ CartIcon } alt="" width="20" />
-            </button>
-          </Link>
-        </div>
-        <div className="name-item-detais">
-          <h3 data-testid="product-detail-name">{title}</h3>
-          <p>{ `R$ ${price.toLocaleString('pt-BR')}` }</p>
-        </div>
-        <div className="product-detail">
-          <img src={ thumbnail } alt={ title } className="img-details" />
-          <ul>
-            {attributes && attributes
-              .map((item, index) => (
-                <li key={ index }>
-                  {item.name}
-                  :
-                  {' '}
-                  {item.value_name}
-                </li>
-              ))}
-          </ul>
-        </div>
-        <button
-          type="button"
-          className="button"
-          data-testid="product-detail-add-to-cart"
-          onClick={ this.handleClick }
-        >
-          Adicionar ao carrinho
-        </button>
-        <form className="form">
-          <input
-            name="email"
-            required
-            placeholder="Email"
-            type="text"
-            value={ email }
-            onChange={ this.inputHandler }
-          />
-          <textarea
-            name="message"
-            placeholder="Message"
-            data-testid="product-detail-evaluation"
-            cols="30"
-            rows="10"
-            value={ message }
-            onChange={ this.inputHandler }
-          />
-          <label htmlFor="rating">
-            1
-            <input
-              type="radio"
-              id="1"
-              name="rating"
-              value="1"
-              onChange={ this.inputHandler }
-            />
-          </label>
-          <label htmlFor="rating">
-            2
-            <input
-              type="radio"
-              id="2"
-              name="rating"
-              value="2"
-              onChange={ this.inputHandler }
-            />
-          </label>
-          <label htmlFor="rating">
-            3
-            <input
-              type="radio"
-              id="3"
-              name="rating"
-              value="3"
-              onChange={ this.inputHandler }
-            />
-          </label>
-          <label htmlFor="rating">
-            4
-            <input
-              type="radio"
-              id="4"
-              name="rating"
-              value="4"
-              onChange={ this.inputHandler }
-            />
-          </label>
-          <label htmlFor="rating">
-            5
-            <input
-              type="radio"
-              id="5"
-              name="rating"
-              value="5"
-              onChange={ this.inputHandler }
-            />
-          </label>
-          <button onClick={ this.renderRating } type="button">Avaliar</button>
-        </form>
-        { showForm ? <Rating email={ email } msg={ message } rating={ rating } /> : null}
-      </>
-    );
-  }
-}
+              className="button"
+              data-testid="product-detail-add-to-cart"
+              disabled={ prod.counter > prod.availableQuantity }
+              onClick={ () => addToCart(prod) }
 
-ProductDetails.propTypes = {
-  location: PropTypes.shape({
-    state: {
-      title: PropTypes.string,
-      thumbnail: PropTypes.string,
-      price: PropTypes.string,
-    },
-  }).isRequired,
-};
+            >
+              Adicionar ao carrinho
+            </button>
+          </div>
+        ))}
+      </div>
+      <form className="form">
+        <input
+          name="email"
+          required
+          placeholder="Email"
+          type="text"
+          value={ email }
+          onChange={ ({ target: { value } }) => setEmail(value) }
+
+        />
+        <textarea
+          name="message"
+          placeholder="Message"
+          data-testid="product-detail-evaluation"
+          cols="30"
+          rows="10"
+          value={ message }
+          onChange={ ({ target: { value } }) => setMessage(value) }
+
+        />
+        <label htmlFor="rating">
+          1
+          <input
+            type="radio"
+            id="1"
+            name="rating"
+            value="1"
+            onChange={ ({ target: { value } }) => setRating(value) }
+
+          />
+        </label>
+        <label htmlFor="rating">
+          2
+          <input
+            type="radio"
+            id="2"
+            name="rating"
+            value="2"
+            onChange={ ({ target: { value } }) => setRating(value) }
+
+          />
+        </label>
+        <label htmlFor="rating">
+          3
+          <input
+            type="radio"
+            id="3"
+            name="rating"
+            value="3"
+            onChange={ ({ target: { value } }) => setRating(value) }
+
+          />
+        </label>
+        <label htmlFor="rating">
+          4
+          <input
+            type="radio"
+            id="4"
+            name="rating"
+            value="4"
+            onChange={ ({ target: { value } }) => setRating(value) }
+
+          />
+        </label>
+        <label htmlFor="rating">
+          5
+          <input
+            type="radio"
+            id="5"
+            name="rating"
+            value="5"
+            onChange={ ({ target: { value } }) => setRating(value) }
+          />
+        </label>
+        <button onClick={ renderRating } type="button">Avaliar</button>
+      </form>
+      { showForm ? <Rating email={ email } msg={ message } rating={ rating } /> : null}
+    </>
+  );
+}
