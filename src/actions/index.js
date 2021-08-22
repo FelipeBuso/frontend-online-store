@@ -4,19 +4,29 @@ const INCREASE_QUANT_PRODUCT = 'INCREASE_QUANT_PRODUCT';
 const DECREASE_QUANT_PRODUCT = 'DECREASE_QUANT_PRODUCT';
 const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
 
-export const addProduct = (newProductId) => ({
+export const addProduct = (product) => ({
   type: ADD_PRODUCT,
-  payload: newProductId,
+  payload: {
+    id: product.id,
+    title: product.title,
+    price: product.price,
+    thumbnail: product.thumbnail,
+  },
 });
 
-export const removeProduct = (productToRemoveFromCart) => ({
+export const removeProduct = (productId) => ({
   type: REMOVE_PRODUCT,
-  payload: productToRemoveFromCart,
+  payload: productId,
 });
 
-export const decreaseQuantProduct = (productToDecreaseQuant) => ({
+export const decreaseQuantProduct = (product) => ({
   type: DECREASE_QUANT_PRODUCT,
-  payload: productToDecreaseQuant,
+  payload: {
+    id: product.id,
+    title: product.title,
+    price: product.price,
+    thumbnail: product.thumbnail,
+  }
 });
 
 const saveCategories = (categories) => ({

@@ -21,13 +21,13 @@ function ProductCard({ product, setProductDetailId, addProduct, setProducts, set
         <p className="product-card-title">{ product.title }</p>
         <p className="product-card-price">R$: { product.price }</p>
       </div>
-      <button onClick={ () => addProduct(product.id) }>Adicionar ao Carrinho</button>
+      <button onClick={ () => addProduct(product) }>Adicionar ao Carrinho</button>
     </div>
   )
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addProduct: (id) => { dispatch(cartActions.addProduct(id)); },
+  addProduct: (product) => { dispatch(cartActions.addProduct(product)); },
 });
 
 export default connect(null, mapDispatchToProps)(ProductCard);
