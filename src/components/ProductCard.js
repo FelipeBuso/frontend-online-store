@@ -1,20 +1,33 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as cartActions from '../actions';
 import '../css/ProductsList.css';
 
-function ProductCard({ product, setProductDetailId }) {
+function ProductCard({ product, setProductDetailId, addProduct, setProducts, setCategoryId }) {
+
+  function renderProductDetail(id) {
+    setCategoryId('');
+    setProducts([]);
+    setProductDetailId(id);
+  }
+
   return (
     <div
       key={ product.id }
       className="product-card-container"
-      onClick={ () => setProductDetailId(product.id) }
     > 
-      <img src={ product.thumbnail } className="product-card-image" />
-      <div className="product-card-content-text">
+      <img src={ product.thumbnail } className="product-card-image" onClick={ () => renderProductDetail(product.id) } />
+      <div className="product-card-content-text" onClick={ () => renderProductDetail(product.id) }>
         <p className="product-card-title">{ product.title }</p>
         <p className="product-card-price">R$: { product.price }</p>
       </div>
+      <button onClick={ () => addProduct(product.id) }>Adicionar ao Carrinho</button>
     </div>
   )
 }
 
-export default ProductCard;
+const mapDispatchToProps = (dispatch) => ({
+  addProduct: (id) => { dispatch(cartActions.addProduct(id)); },
+});
+
+export default connect(null, mapDispatchToProps)(ProductCard);

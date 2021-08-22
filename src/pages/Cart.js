@@ -1,12 +1,26 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 
-function Cart() {
+function Cart({ cartProducts }) {
+
+  // function renderProductsCart() {
+  //   const cart = cartProducts.map((product) => {
+
+  //   });
+  //   return cart;
+  // }
+
   return (
     <div>
-      <Header />        
+      <Header />
+      {/* { cartProducts && renderProductsCart() }       */}
     </div>
   );
 }
 
-export default Cart;
+const mapStateToProps = (state) => ({
+  cartProducts: state.cart.cartProducts,
+});
+
+export default connect(mapStateToProps)(Cart);

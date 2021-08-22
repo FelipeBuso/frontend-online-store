@@ -4,19 +4,14 @@ const INCREASE_QUANT_PRODUCT = 'INCREASE_QUANT_PRODUCT';
 const DECREASE_QUANT_PRODUCT = 'DECREASE_QUANT_PRODUCT';
 const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
 
-export const addProduct = (newProduct) => ({
+export const addProduct = (newProductId) => ({
   type: ADD_PRODUCT,
-  payload: newProduct,
+  payload: newProductId,
 });
 
 export const removeProduct = (productToRemoveFromCart) => ({
   type: REMOVE_PRODUCT,
   payload: productToRemoveFromCart,
-});
-
-export const increaseQuantProduct = (productToIncreaseQuant) => ({
-  type: INCREASE_QUANT_PRODUCT,
-  payload: productToIncreaseQuant,
 });
 
 export const decreaseQuantProduct = (productToDecreaseQuant) => ({

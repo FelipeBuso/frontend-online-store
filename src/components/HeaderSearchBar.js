@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import '../css/Header.css';
 import searchIcon from '../icons/searchIcon.png';
 
-function HeaderSearchBar({ setQuery, setCategoryId, setProductDetail }) {
+function HeaderSearchBar({ setQuery, setCategoryId, setProductDetailId }) {
   const [searchText, setSearchText] = useState('');
 
   function setParamsAPI() {
-    setProductDetail({});
+    setProductDetailId('');
     setQuery(searchText);
     setCategoryId('');
   }

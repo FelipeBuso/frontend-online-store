@@ -12,7 +12,6 @@ function Home({ getCategories }) {
   const [query, setQuery] = useState('');
   const [products, setProducts] = useState([]);
   const [productDetailId, setProductDetailId] = useState('');
-  const [productDetail, setProductDetail] = useState({});
 
   useEffect(() => {
     getCategories();
@@ -22,46 +21,37 @@ function Home({ getCategories }) {
     const getProducts = async () => {
       const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}&q=${query}`);
       const json = await response.json();
-      console.log(json.results);
       setProducts(json.results);
     };
     if (categoryId !== '' || query !== '') getProducts();
   }, [categoryId, query]);
-
-  useEffect(() => {
-    const getProductDetail = async () => {
-      const response = await fetch(`https://api.mercadolibre.com/items?ids=${productDetailId}`);
-      const json = await response.json();
-      // const { body: { title, price, thumbnail } } = json[0];
-      const newProductDetail = json[0].body;
-      setProducts([]);
-      setProductDetail(newProductDetail);
-    }
-    if (productDetailId !== '') getProductDetail();
-  }, [productDetailId]);
 
   return (
     <div>
       <Header
         setQuery={ setQuery }
         setCategoryId={ setCategoryId }
-        setProductDetail={ setProductDetail }
+        setProductDetailId={ setProductDetailId }
       />
       <section className="home-products-container">
         <CategoriesList
           setCategoryId={ setCategoryId }
           setQuery={ setQuery }
-          setProductDetail={ setProductDetail }
+          setProductDetailId={ setProductDetailId }
         />
         {products
           && 
           <ProductsList
             products={ products }
             setProductDetailId={ setProductDetailId }
-            setProductDetail={ setProductDetail }
+            setProducts={ setProducts }
+            setCategoryId={ setCategoryId }
           />
         }
-        {productDetail && <ProductDetail productDetail={ productDetail } />}
+        { productDetailId &&
+          <ProductDetail
+            productDetailId={ productDetailId }
+          /> }
       </section>
     </div>
   )

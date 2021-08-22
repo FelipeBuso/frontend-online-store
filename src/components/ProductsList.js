@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/ProductsList.css';
 import ProductCard from './ProductCard';
 
-function ProductsList({ products, setProductDetailId }) {
+function ProductsList({ products, setProductDetailId, setProducts, setCategoryId }) {
   return (
     <div className="product-list-container">
       { products.map((product) => {
@@ -11,6 +11,8 @@ function ProductsList({ products, setProductDetailId }) {
             key={ product.id }
             product={ product }
             setProductDetailId={ setProductDetailId }
+            setProducts={ setProducts }
+            setCategoryId={ setCategoryId }
           />
         );
       }) }

@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import '../css/CategoriesList.css';
 
-function CategoriesList({ categories, setCategoryId, setQuery, setProductDetail }) {
+function CategoriesList({ categories, setCategoryId, setQuery, setProductDetailId }) {
 
   function setParamsAPI(id) {
-    setProductDetail({});
     setCategoryId(id);
+    setProductDetailId('');
     setQuery('');
   }
 
