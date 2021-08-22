@@ -10,6 +10,7 @@
 */
 
 const INITIAL_STATE = {
+  categories: [],
   cartProducts: [],
 };
 
@@ -31,6 +32,11 @@ const cart = (state = INITIAL_STATE, action) => {
       return state;
     case 'DECREASE_QUANT_PRODUCT':
       return state;
+    case 'SAVE_CATEGORIES':
+      return {
+        ...state,
+        categories: action.payload,
+      }
     default:
       return state;
   }

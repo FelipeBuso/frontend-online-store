@@ -3,7 +3,7 @@
   justify-content: space-around;
   align-items: center;
   height: 50px;
-  background-color: rgb(58, 58, 223);
+  background-color: aqua;
 }
 
 .header-search-bar-input {
@@ -30,5 +30,5 @@
 
 .links-header {
   text-decoration: none;
-  color: white
+  color: black;
 }
