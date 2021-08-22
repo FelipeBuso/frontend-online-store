@@ -21,6 +21,7 @@ function Home({ getCategories }) {
     const getProducts = async () => {
       const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}&q=${query}`);
       const json = await response.json();
+      if (json.results.length === 0) return alert('Desculpa, não encontramos nenhum produto! Digite novamente!');
       setProducts(json.results);
     };
     if (categoryId !== '' || query !== '') getProducts();
@@ -39,8 +40,7 @@ function Home({ getCategories }) {
           setQuery={ setQuery }
           setProductDetailId={ setProductDetailId }
         />
-        {products
-          && 
+        { products.length > 0 && 
           <ProductsList
             products={ products }
             setProductDetailId={ setProductDetailId }
@@ -51,7 +51,8 @@ function Home({ getCategories }) {
         { productDetailId &&
           <ProductDetail
             productDetailId={ productDetailId }
-          /> }
+          />
+        }
       </section>
     </div>
   )

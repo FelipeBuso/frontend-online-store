@@ -86,6 +86,11 @@ const cart = (state = INITIAL_STATE, action) => {
         ...state,
         categories: action.payload,
       }
+    case 'RESTART_SESSION':
+      return {
+        ...state,
+        cartProducts: [],
+      }
     default:
       return state;
   }

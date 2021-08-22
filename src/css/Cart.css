@@ -59,3 +59,18 @@
 .buttons-cart-remove:hover {
   background-color: rgb(73, 73, 216);
 }
+
+.end-container {
+  text-align: center;
+  margin-left: 27%;
+  margin-top: 10%;
+  padding: 5%;
+  width: 400px;
+  font-size: 13px;
+  border: 2px solid aqua;
+  box-shadow: 2px 2px rgb(175, 173, 173);
+}
+
+.end-container:hover {
+  box-shadow: 2px 2px rgb(94, 93, 93);
+}

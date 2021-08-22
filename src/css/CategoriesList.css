@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   width: 13%;
+  height: 100%;
   border: 1px solid aqua;
   margin: 5px;
-  margin-top: 9px;
-  background-color: royalblue;
+  margin-top: 10px;
 }
 
 .categories-list-button {

@@ -43,3 +43,16 @@
   display: flex;
   align-self: flex-end;
 }
+
+.product-card-buttons-add {
+  padding: 1%;
+  margin: 1%;
+  border: none;
+  background: none;
+  border: 1px solid aqua;
+  background-color: whitesmoke;
+}
+
+.product-card-buttons-add:hover {
+  background-color: rgb(73, 73, 216);
+}

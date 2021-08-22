@@ -21,7 +21,13 @@ function ProductCard({ product, setProductDetailId, addProduct, setProducts, set
         <p className="product-card-title">{ product.title }</p>
         <p className="product-card-price">R$: { product.price }</p>
       </div>
-      <button onClick={ () => addProduct(product) }>Adicionar ao Carrinho</button>
+      <button
+        type="button"
+        onClick={ () => addProduct(product) }
+        className="product-card-buttons-add"
+      >
+        Adicionar ao Carrinho
+      </button>
     </div>
   )
 }

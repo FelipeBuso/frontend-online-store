@@ -1,11 +1,16 @@
 .product-detail-container {
+  border: 2px solid aqua;
+  box-shadow: 2px 2px 2px 2px rgb(214, 206, 206);
   margin-top: 5px;
   margin-left: 20px;
   display: flex;
   flex-direction: column;
-  background-color: aquamarine;
   width: 350px;
   height: 550px;
+}
+
+.product-detail-container:hover {
+  box-shadow: 2px 2px 2px 2px rgb(138, 132, 132);
 }
 
 .product-detail-img {
@@ -20,4 +25,17 @@
   flex-direction: column;
   justify-content: space-between;
   font-size: 15px;
+}
+
+.product-detail-add-button {
+  padding: 1%;
+  margin: 1%;
+  border: none;
+  background: none;
+  border: 1px solid aqua;
+  background-color: whitesmoke;
+}
+
+.product-detail-add-button:hover {
+  background-color: rgb(73, 73, 216);
 }

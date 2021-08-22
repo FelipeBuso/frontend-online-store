@@ -1,8 +1,8 @@
 const ADD_PRODUCT = 'ADD_PRODUCT';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-const INCREASE_QUANT_PRODUCT = 'INCREASE_QUANT_PRODUCT';
 const DECREASE_QUANT_PRODUCT = 'DECREASE_QUANT_PRODUCT';
 const SAVE_CATEGORIES = 'SAVE_CATEGORIES';
+const RESTART_STATE = 'RESTART_SESSION';
 
 export const addProduct = (product) => ({
   type: ADD_PRODUCT,
@@ -27,6 +27,10 @@ export const decreaseQuantProduct = (product) => ({
     price: product.price,
     thumbnail: product.thumbnail,
   }
+});
+
+export const restartState = () => ({
+  type: RESTART_STATE,
 });
 
 const saveCategories = (categories) => ({

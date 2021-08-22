@@ -37,7 +37,13 @@ function ProductDetail({ productDetailId, addProduct }) {
             <p>País: { productDetail.seller_address.country.name }</p>
           </div>
         </div>
-        <button onClick={() => addProduct(productDetailId)}>Adiconar ao Carrinho</button>
+        <button
+          type="button"
+          className="product-detail-add-button"
+          onClick={() => addProduct(productDetail)}
+        >
+          Adiconar ao Carrinho
+        </button>
       </div>
     );
   }

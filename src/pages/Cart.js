@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import * as cartActions from '../actions';
 import Header from '../components/Header';
 import '../css/Cart.css';
+import { Redirect } from 'react-router'; 
 
-function Cart({ cartProducts, addProduct, decreaseQuantProduct, removeProduct }) {
+function Cart({ cartProducts, addProduct, decreaseQuantProduct, removeProduct, restartState }) {
   const [totalPrice, setTotalPrice] = useState(0);
+  const [shouldRenderEndComponent, setShouldRenderEndComponent] = useState(false);
+  const [shouldBackHome, setShouldBackHome] = useState(false);
 
   useEffect(() => {
     let newTotalPrice = 0;
@@ -42,11 +45,39 @@ function Cart({ cartProducts, addProduct, decreaseQuantProduct, removeProduct })
     ) 
   }
 
+  function restartSession() {
+    restartState();
+    setShouldBackHome(true);
+  }
+
   return (
     <div>
-      <Header />
-      <h3 className="product-cart-total-value">Valor Total: R$ { totalPrice }</h3>
-      { cartProducts && renderProductsCart() }      
+      { !shouldRenderEndComponent &&
+        <div> 
+          <Header />
+          <h3 className="product-cart-total-value">Valor Total: R$ { totalPrice }</h3>
+          { totalPrice > 0
+              && <button onClick={ () => setShouldRenderEndComponent(true) } className="buttons-cart-remove" >
+                  Finalizar Compra
+                </button>
+          }
+          { cartProducts && renderProductsCart() }      
+        </div>
+      }
+      { shouldRenderEndComponent &&
+        <div className="end-container">
+          <p className="end-title">Compra Finalizada com sucesso!</p>
+          <p className="end-price">Valor Final Compra: R$ { totalPrice }</p>
+          <p className="end-message">Seus produtos logo chegaram na porta de sua casa!</p>
+          <button
+            className="buttons-cart-remove"
+            onClick={ () => restartSession() }
+          >
+            Fazer nova compra
+          </button>
+        </div>
+      }
+      { shouldBackHome && <Redirect to="/" /> }
     </div>
   );
 }
@@ -59,6 +90,7 @@ const mapDispatchToProps = (dispatch) => ({
   addProduct: (product) => { dispatch(cartActions.addProduct(product)); },
   removeProduct: (id) => { dispatch(cartActions.removeProduct(id)); },
   decreaseQuantProduct: (product) => { dispatch(cartActions.decreaseQuantProduct(product)); },
+  restartState: () => { dispatch(cartActions.restartState()); },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
