@@ -3,9 +3,13 @@
 Time: 
 
 [![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/alinehofner)](https://github.com/alinehofner) - Aline Hofner
+
 [![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/FelipeBuso)](https://github.com/FelipeBuso) - Felipe Buso
+
 [![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/janaolive)](https://github.com/janaolive) - Janaína Oliveirla
+
 [![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/LuanAlexandre)](https://github.com/LuanAlexandre) - Luan Alexandre
+
 [![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white&link=https://github.com/vitilevi)](https://github.com/vitilevi) - Víctor Faria
 
 
