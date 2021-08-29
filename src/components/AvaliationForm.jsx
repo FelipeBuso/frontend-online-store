@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Rating from './Rating';
+import '../styles/AvaliationForm.css';
 
 export default class AvaliationForm extends Component {
   constructor(props) {
@@ -56,8 +58,8 @@ export default class AvaliationForm extends Component {
     return (
       <form>
         <h2>Avaliações</h2>
-        <div className="form-check">
-          <label htmlFor="form-email">
+        <div className="form-check email-rating">
+          <label className="email-label" htmlFor="form-email">
             <input
               name="email"
               id="form-email"
@@ -66,88 +68,21 @@ export default class AvaliationForm extends Component {
               onChange={ this.handleChange }
             />
           </label>
+          <Rating handleChange={ this.handleChange } />
         </div>
-        <div className="form-radio">
-          <div className="form-check">
-            <label htmlFor="1-star">
-              1
-              <input
-                type="radio"
-                value={ 1 }
-                name="formStars"
-                className="form-check-input"
-                id="1-star"
-                onChange={ this.handleChange }
-              />
-            </label>
-          </div>
-          <div className="form-check">
-            <label htmlFor="2-star">
-              2
-              <input
-                type="radio"
-                value={ 2 }
-                name="formStars"
-                className="form-check-input"
-                id="2-star"
-                onChange={ this.handleChange }
-              />
-            </label>
-          </div>
-          <div className="form-check">
-            <label htmlFor="3-star">
-              3
-              <input
-                type="radio"
-                value={ 3 }
-                className="form-check-input"
-                name="formStars"
-                id="3-star"
-                onChange={ this.handleChange }
-              />
-            </label>
-          </div>
-          <div className="form-check">
-            <label htmlFor="4-star">
-              4
-              <input
-                type="radio"
-                value={ 4 }
-                name="formStars"
-                className="form-check-input"
-                id="4-star"
-                onChange={ this.handleChange }
-              />
-            </label>
-          </div>
-          <div className="form-check">
-            <label htmlFor="5-star">
-              5
-              <input
-                type="radio"
-                value={ 5 }
-                name="formStars"
-                className="form-check-input"
-                id="5-star"
-                onChange={ this.handleChange }
-              />
-            </label>
-          </div>
-        </div>
-        <div>
-          <label htmlFor="form-text-area">
+        <div className="form-check">
+          <label className="avaliation-textarea" htmlFor="form-text-area">
             <textarea
               name="message"
               data-testid="product-detail-evaluation"
               id="form-text-area"
               value={ message }
-              cols="30"
-              rows="10"
+              className=""
               onChange={ this.handleChange }
             />
           </label>
         </div>
-        <div>
+        <div className="form-check">
           <button
             onClick={ this.handleForm }
             className="btn btn-primary"
